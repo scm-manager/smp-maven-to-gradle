@@ -1,0 +1,45 @@
+{{^license.empty}}
+/*
+{{#license}}
+ * {{{.}}}
+{{/license}}
+ */
+{{/license.empty}}
+
+
+plugins {
+  id 'org.scm-manager.smp' version '0.2.1'
+}
+
+dependencies {
+{{#pomXml.runtimeDependencies}}
+  implementation "{{.}}"
+{{/pomXml.runtimeDependencies}}
+{{#pluginXml.dependencies}}
+  plugin "{{gradleString}}"
+{{/pluginXml.dependencies}}
+{{#pluginXml.optionalDependencies}}
+  optionalPlugin "{{gradleString}}"
+{{/pluginXml.optionalDependencies}}
+{{#pomXml.testDependencies}}
+  testImplementation "{{.}}"
+{{/pomXml.testDependencies}}
+}
+
+scmPlugin {
+  scmVersion = "{{ pluginXml.conditions.minVersion }}"
+  displayName = "{{ pluginXml.information.displayName }}"
+  description = "{{ pluginXml.information.description }}"
+  author = "{{ pluginXml.information.author }}"
+  category = "{{ pluginXml.information.category }}"
+
+{{^pomXml.openApiPackages.empty }}
+  openapi {
+    packages = [
+    {{#pomXml.openApiPackages}}
+      "{{.}}",
+    {{/pomXml.openApiPackages}}
+    ]
+  }
+{{/pomXml.openApiPackages.empty}}
+}
