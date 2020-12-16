@@ -30,7 +30,7 @@ public class MigratePackageJson implements Step {
     JsonNode node = mapper.readTree(path.toFile());
 
     ObjectNode devDependencies = (ObjectNode) node.get("devDependencies");
-    devDependencies.put("@scm-manager/plugin-scripts", "1.0.0");
+    devDependencies.put("@scm-manager/plugin-scripts", "1.0.1");
     if (devDependencies.has("@scm-manager/jest-preset")) {
       devDependencies.put("@scm-manager/jest-preset", "^2.12.1");
     }
